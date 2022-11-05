@@ -1,0 +1,197 @@
+* {
+  margin: 0px;
+}
+
+body {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(80, 80, 80);
+  position: relative;
+  overflow: hidden;
+}
+
+.game-board {
+  background-color: rgb(221, 221, 221);
+  display: grid;
+  grid-template-rows: repeat(var(--grid-size), var(--cell-size));
+  grid-template-columns: repeat(var(--grid-size), var(--cell-size));
+  gap: var(--cell-gap);
+  padding: var(--cell-gap);
+  border-radius: var(--border-radius);
+  position: relative;
+}
+
+.cell {
+  background-color: grey;
+  border-radius: 2vmin;
+  animation-fill-mode: forwards;
+}
+
+.cell:hover {
+  cursor: pointer;
+  background-color: rgb(160, 160, 160);
+}
+
+.tile {
+  --x: 0;
+  --y: 0;
+  position: absolute;
+  border-radius: var(--border-radius);
+  width: var(--cell-size);
+  height: var(--cell-size);
+  top: calc(
+    (var(--x) * var(--cell-size)) + (var(--x) * var(--cell-gap)) +
+      var(--cell-gap)
+  );
+  left: calc(
+    (var(--y) * var(--cell-size)) + (var(--y) * var(--cell-gap)) +
+      var(--cell-gap)
+  );
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation-fill-mode: forwards;
+}
+
+.cross:before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f00d";
+  font-size: calc(var(--cell-size));
+  color: red;
+}
+
+.circle:before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\4f";
+  font-size: calc(var(--cell-size) - 2vmin);
+  color: blue;
+}
+
+@keyframes win {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.03);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes tie {
+  100% {
+    transform: scale(0) rotate(900deg);
+  }
+}
+
+#game-size {
+  position: absolute;
+  font-size: 3.5vmin;
+  border: 0px;
+  outline: 0px;
+  width: 5vmin;
+  height: 5vmin;
+  z-index: 12;
+  width: 7vmin;
+  right: 50%;
+  top: 1vmin;
+}
+
+.message {
+  font-size: 8vmin;
+  position: absolute;
+  top: 40%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-weight: 900;
+  color: red;
+  animation: message 1s forwards;
+  animation-fill-mode: forwards;
+}
+
+.reset {
+  font-size: 4vmin;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-weight: 900;
+  color: red;
+  animation: message 1s forwards, bounce 1s infinite 1s;
+  animation-fill-mode: forwards;
+  cursor: pointer;
+}
+
+@keyframes message {
+  0% {
+    transform: scale(0) rotate(900deg);
+  }
+
+  50% {
+    transform: scale(0) rotate(900deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.3);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.playAi {
+  position: absolute;
+  top: 1vmin;
+  left: 50%;
+  margin-left: 5vmin;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.playAi select,
+.playAi label {
+  font-size: 2.5vmin;
+}
+
+.playAi select {
+  height: 5vmin;
+  outline: 0;
+  border: 0;
+}
+
+.playAi label {
+  color: white;
+  margin-right: 1vmin;
+}
